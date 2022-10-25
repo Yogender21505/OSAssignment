@@ -17,10 +17,12 @@ and to know that redirection of the input OR output has to be done
 #define INPUT 0
 #define OUTPUT 1
 #define APPEND 2
-
+const char* pthcommand;
 /*
 removes the newline and space character from the end and start of a char*
 */
+
+
 void removeWhiteSpace(char* buf){
 	if(buf[strlen(buf)-1]==' ' || buf[strlen(buf)-1]=='\n')
 	buf[strlen(buf)-1]='\0';
@@ -48,6 +50,7 @@ void tokenize_buffer(char** param,int *nr,char *buf,const char *c){
 /*
 used for debugging purposes to print all the strings in a string array
 */
+
 void print_params(char ** param){
 	while(*param){
 		printf("param=%s..\n",*param++);
@@ -58,17 +61,15 @@ void print_params(char ** param){
 loads and executes a single external command
 */
 void executeBasic(char** argv){
-	if(fork()>0){
-		//parent
-		wait(NULL);
-	}
-	else{
 		//child
 		execvp(argv[0],argv);
 		//in case exec is not successfull, exit
 		perror("invalid input""\n");
 		exit(1);
-	}
+}
+void *SyscallPthread(void *arg){
+		//child
+		system(pthcommand);
 }
 
 /*
@@ -177,16 +178,16 @@ int main(char** argv,int argc)
 	while(1){
 
 		//print current Directory
+        
 		if (getcwd(cwd, sizeof(cwd)) != NULL)
 		printf("%s  ", cwd);
 		else 	perror("getcwd failed\n");
-
+		pthread_t th1;
 		//read user input
 		fgets(buf, 500, stdin);//buffer overflow cannot happen
-
 		//check if only a simple command needs to be executed or multiple piped commands or other types
 		if(strchr(buf,'|')){//tokenize pipe commands
-			tokenize_buffer(buffer,&nr,buf,"|");
+            tokenize_buffer(buffer,&nr,buf,"|");
 			executePiped(buffer,nr);
 		}
 		else if(strchr(buf,'&')){//asyncronous execution
@@ -210,15 +211,21 @@ int main(char** argv,int argc)
 		}
 		else{//single command including internal ones
 			tokenize_buffer(params1,&nr,buf," ");
+			if(strstr(params1[0],"&t")){//cd builtin command
+				pthcommand=params1[1];
+				pthread_create(&th1,NULL,SyscallPthread,(void*)&th1);
+				pthread_join(th1,NULL);
+			}
 			if(strstr(params1[0],"cd")){//cd builtin command
 				chdir(params1[1]);
 			}
 			else if(strstr(params1[0],"exit")){//exit builtin command
 				exit(0);
 			}
-			else executeBasic(params1);
+			else{
+                executeBasic(params1);
+            } 
 		}
 	}
-
 	return 0;
 }
