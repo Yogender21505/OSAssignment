@@ -1,0 +1,48 @@
+Part1:(fork() and execl family execvp()/execv()
+	wait())
+	all Three internal commands handeled
+	
+	cd , echo and pwd
+
+	all five external commands handeled
+	
+	ls, cat, date, rm , mkdir
+
+Exception handeled with all wrong inputs
+
+
+Part2:(pthread_create() and system())
+	all three internal commands handeled 
+
+	cd , echo and pwd
+
+	all five external commands handeled
+	
+	&t ls,&t cat,&t date,&t rm ,&t mkdir many more.
+
+Exception handeled with all wrong inputs
+
+Test cases are:
+Part1:
+	ls,ls -i,ls -d
+	mkdir -v new , mkdir -p new
+	cd new
+	rm -i filename , rm -r filename
+	echo "hello"
+	pwd
+	cat -s filename, cat -n filename
+	date -I, date -R
+	
+Part2:
+	with &t all below commands are handeled
+	&t ls, &t ls -i,&t ls -d
+	&t mkdir -v new ,&t mkdir -p new
+	&t rm -i filename, &t rm -r filename
+	&t cat -s filename, &t cat -n filename
+	&t date -I, &t date -R
+without &t it will works !
+
+
+rest assumptions will be given by me.
+thank you
+	
