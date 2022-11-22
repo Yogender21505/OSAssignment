@@ -5,7 +5,7 @@
 #include <sched.h>
 
 #define BILLION  1000000000L;
-int Priority[3][3]={{0,0,0},{10,10,10},{50,50,50}};
+int Priority[3][3]={{1,1,1},{4,4,4},{8,8,8}};
 int len=0;
 pthread_t tha;
 pthread_t thb;
