@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <math.h>
+#include <sched.h>
 #include <sys/wait.h>
 
 #define BILLION  1000000000L;
