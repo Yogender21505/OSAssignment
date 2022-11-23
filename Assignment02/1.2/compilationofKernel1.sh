@@ -1,7 +1,4 @@
-cd linux-5.19.9
-make mrproper
-lynx is.am/56er
-mv config-rev-9-gold .config
-make nconfig
-make
-make -C /lib/modules/5.19.9/source && make -j $(nproc)
+make -C /home/yogender/new_kernel/linux-5.19.9 && make nconfig
+make -C /home/yogender/new_kernel/linux-5.19.9 && make localmodconfig
+make -C /home/yogender/new_kernel/linux-5.19.9 && make nconfig
+make -C /home/yogender/new_kernel/linux-5.19.9 && make -j $(nproc)

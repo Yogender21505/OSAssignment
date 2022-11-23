@@ -50,10 +50,10 @@ int main()
         return 0;
     }
     int pid1_res= waitpid(pid1,NULL,0);
-    printf("pid1 =%d\n",pid1_res);
+    // printf("pid1 =%d\n",pid1_res);
     int pid2_res= waitpid(pid2,NULL,0);
-    printf("pid2 =%d \n",pid2_res);
+    // printf("pid2 =%d \n",pid2_res);
     int pid3_res= waitpid(pid3,NULL,0);
-    printf("pid3 =%d \n",pid3_res);
+    // printf("pid3 =%d \n",pid3_res);
 	return 0;
 }
