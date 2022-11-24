@@ -49,7 +49,7 @@ int main()
         pid1 = ( stop.tv_sec - start.tv_sec )
             + (double)( stop.tv_nsec - start.tv_nsec )
             / (double)BILLION;
-
+        printf("Time taken by PID1 -> ( %lf )",pid1);
 
         return 0;
     }
@@ -78,7 +78,7 @@ int main()
             + (double)( stop.tv_nsec - start.tv_nsec )
             / (double)BILLION;
 
-
+        printf("Time taken by PID1 -> ( %lf )",pid2);
         
         return 0;
     }
@@ -106,17 +106,14 @@ int main()
         pid3 = ( stop.tv_sec - start.tv_sec )
             + (double)( stop.tv_nsec - start.tv_nsec )
             / (double)BILLION;
+        
+        printf("Time taken by PID1 -> ( %lf )",pid3);
 
         return 0;
     }
     int pid1_res= waitpid(pid1,NULL,0);
-    printf("Time taken by PID1 -> ( %lf )",pid1);
-        
     int pid2_res= waitpid(pid2,NULL,0);
-    printf("Time taken by PID1 -> ( %lf )",pid2);
-        
     int pid3_res= waitpid(pid3,NULL,0);
-    printf("Time taken by PID1 -> ( %lf )",pid3);
 
 	return 0;
     }
