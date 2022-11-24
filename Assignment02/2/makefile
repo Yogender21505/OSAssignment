@@ -1,7 +1,5 @@
-obj-m += 2.o
-
 all:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
-
+	gcc copy2dmatrix.c
+	./a.out
 clean:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+	rm a.out
