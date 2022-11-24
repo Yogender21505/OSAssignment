@@ -6,6 +6,9 @@
 #include <sys/wait.h>
 #include <sched.h>
 #include <errno.h>
+#include <time.h>
+
+#define BILLION  1000000000L;
 
 int main()
 {
