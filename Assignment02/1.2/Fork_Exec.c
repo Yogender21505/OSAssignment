@@ -9,6 +9,8 @@
 
 int main()
 {
+    struct timespec start, stop;
+    double accum;
     char *args1[]={"bash","compilationofKernel1.sh",NULL};
     char *args2[]={"bash","compilationofKernel2.sh",NULL};
     char *args3[]={"bash","compilationofKernel3.sh",NULL};
@@ -27,7 +29,22 @@ int main()
         // sleep(4);
         // printf("pid1\n");
         // sleep(10);
+        
+        if( clock_gettime( CLOCK_REALTIME, &start) == -1 ) {
+        perror( "clock gettime" );
+
+        }
         execvp(args1[0],args1);
+
+        if( clock_gettime( CLOCK_REALTIME, &stop) == -1 ) {
+        perror( "clock gettime" );
+
+        }
+        accum = ( stop.tv_sec - start.tv_sec )
+            + (double)( stop.tv_nsec - start.tv_nsec )
+            / (double)BILLION;
+        printf("Time taken by PID1 -> ( %lf )",accum);
+        
         return 0;
     }
     
@@ -41,7 +58,22 @@ int main()
         sched_setscheduler(getpid(),SCHED_OTHER,&param2);
         // printf("pid2\n");
         // sleep(10);
+        if( clock_gettime( CLOCK_REALTIME, &start) == -1 ) {
+        perror( "clock gettime" );
+        
+        }
         execvp(args2[0],args2);
+
+        if( clock_gettime( CLOCK_REALTIME, &stop) == -1 ) {
+        perror( "clock gettime" );
+
+        }
+        accum = ( stop.tv_sec - start.tv_sec )
+            + (double)( stop.tv_nsec - start.tv_nsec )
+            / (double)BILLION;
+
+        printf("Time taken by PID2 -> ( %lf )",accum);
+        
         return 0;
     }
 
@@ -55,11 +87,24 @@ int main()
         sched_setscheduler(getpid(),SCHED_OTHER,&param3);
         // printf("pid3\n");
         // sleep(10);
+        if( clock_gettime( CLOCK_REALTIME, &start) == -1 ) {
+        perror( "clock gettime" );
+
+        }
         execvp(args3[0],args3);
+
+        if( clock_gettime( CLOCK_REALTIME, &stop) == -1 ) {
+        perror( "clock gettime" );
+
+        }
+        accum = ( stop.tv_sec - start.tv_sec )
+            + (double)( stop.tv_nsec - start.tv_nsec )
+            / (double)BILLION;
+        printf("Time taken by PID3 -> ( %lf )",accum);
         return 0;
     }
     int pid1_res= waitpid(pid1,NULL,0);
     int pid2_res= waitpid(pid2,NULL,0);
     int pid3_res= waitpid(pid3,NULL,0);
 	return 0;
-}
+    }
