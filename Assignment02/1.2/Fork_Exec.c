@@ -9,9 +9,9 @@
 #include <time.h>
 
 #define BILLION  1000000000L;
-double pid1;
-double pid2;
-double pid3;
+double pid1_time;
+double pid2_time;
+double pid3_time;
 
 int main()
 {
@@ -46,10 +46,10 @@ int main()
         perror( "clock gettime" );
 
         }
-        pid1 = ( stop.tv_sec - start.tv_sec )
+        pid1_time = ( stop.tv_sec - start.tv_sec )
             + (double)( stop.tv_nsec - start.tv_nsec )
             / (double)BILLION;
-        printf("Time taken by PID1 -> ( %lf )",pid1);
+        printf("Time taken by PID1 -> ( %lf )",pid1_time);
 
         return 0;
     }
@@ -74,11 +74,11 @@ int main()
         perror( "clock gettime" );
 
         }
-        pid2 = ( stop.tv_sec - start.tv_sec )
+        pid2_time = ( stop.tv_sec - start.tv_sec )
             + (double)( stop.tv_nsec - start.tv_nsec )
             / (double)BILLION;
 
-        printf("Time taken by PID1 -> ( %lf )",pid2);
+        printf("Time taken by PID1 -> ( %lf )",pid2_time);
         
         return 0;
     }
@@ -103,7 +103,7 @@ int main()
         perror( "clock gettime" );
 
         }
-        pid3 = ( stop.tv_sec - start.tv_sec )
+        pid3_time = ( stop.tv_sec - start.tv_sec )
             + (double)( stop.tv_nsec - start.tv_nsec )
             / (double)BILLION;
         
