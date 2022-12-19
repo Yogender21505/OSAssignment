@@ -11,26 +11,32 @@ pid_t ppid[5];
 char semaphorename[5];
 int n;
 int Eating(int val);
-
+void createsemaphore(){
+        int i;
+        for(i=0;i<n;i++){
+        sprintf(semaphorename,"%d",getpid()+i);
+        semaphore[i]=sem_open(semaphorename,O_CREAT,0644,1);
+    }
+}
 int main()
 {
     int i,j=0;
     n = 5;
 
     //Creating Semaphore for all philospher working
-    for(i=0;i<n;i++){
-        sprintf(semaphorename,"%d",getpid()+i);
-        semaphore[i]=sem_open(semaphorename,O_CREAT|O_EXCL,0666,1);
-    }
+    createsemaphore();
 
     //Creating process
     for(i=0;i<n;i++){
         ppid[i]=fork();
-        if(ppid[i]==0)
-        break;
+        
+        if(ppid[i]==0){
+                    break;
+        }
     }
+
     // when philosopher 5 is eating he takes fork 1 and fork 5
-    if(i==n){
+    if(i==5){
         int status;
         for(i=0;i<n;i++){
             waitpid(ppid[i],&status,WUNTRACED);
@@ -50,18 +56,17 @@ int main()
 
 }
 int Eating(int val){
-    // printf("%d Thinking\n",val+1);
-    while(1)
-    {
+
+    do{
         sem_wait(semaphore[val%n]);
         if(!sem_trywait(semaphore[(val+1)%n])){
             break;
         }
-        else{sem_post(
-            semaphore[val%n]);
+        else{
+            sem_post(semaphore[val%n]);
         }
         
-    }
+    }while(1);
 
     printf("%d Eating\n",val+1);
 
@@ -83,3 +88,6 @@ int Eating(int val){
 // call to sem_open(). If a semaphore is created, then the maximum SEM_VALUE_MAX
 // of the semaphore is set to SEM_VALUE_MAX and the title of the semaphore
 // is set to the last 16 characters of the name.
+
+//@https://stackoverflow.com/questions/19837412/how-to-replace-sem-init-with-sem-open-for-non-pointer-semaphore
+//
