@@ -11,7 +11,7 @@ module_param(givenproc,charp,0660);
 
 
 //--------------task_Struct----------------------------
-static void  current_process(void){
+static void  Required_process(void){
 	struct task_struct *task;
 	
 	for_each_process(task){
