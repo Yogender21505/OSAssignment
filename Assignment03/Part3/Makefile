@@ -1,6 +1,6 @@
 ifneq ($(KERNELRELEASE),)
 
-obj-m += module.o
+obj-m += Process.o
 else
 	PWD := $(shell pwd)
 	KVER := $(shell uname -r)

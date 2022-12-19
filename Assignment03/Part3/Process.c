@@ -6,8 +6,8 @@
 #include<linux/sched/signal.h>
 #include<linux/moduleparam.h>
 
-static char *givenproc="";
-module_param(givenproc,charp,0660);
+static char *proc="";
+module_param(proc,charp,0660);
 
 
 //--------------task_Struct----------------------------
@@ -19,6 +19,7 @@ static void  Required_process(void){
 		int ret=strcmp(givenproc,task->comm);
 		if (ret==0){
 			printk(KERN_INFO "Process Command=%s, pid=%d userid=%d groupid=%d \n", task->comm, task->pid,cred->uid,cred->gid);
+			break;
 		}
 	}
 }	
