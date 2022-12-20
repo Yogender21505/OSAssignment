@@ -6,7 +6,9 @@
 #include <fcntl.h>
 #define NAME "StringFile"
 #define PORT 8080
+#include<time.h>
 
+#define BILLION  1000000000L;
 char *randstring(size_t length) {
 
     static char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,.-#'?!";        
@@ -69,6 +71,12 @@ int main(int argc, char const* argv[])
 		return -1;
 	}
     ////////////////Transfering Strings to Server //////////////////
+    struct timespec start, stop;
+    double accum;
+    if( clock_gettime( CLOCK_REALTIME, &start) == -1 ) {
+        perror( "clock gettime" );
+        return ;
+    }
     fd = open(NAME, O_WRONLY);
     for (int i = 0; i < 50; i++){
         char string[3000]="";
@@ -94,6 +102,14 @@ int main(int argc, char const* argv[])
         printf("P1: ID %d Successfull\n",i-1);
         i=i-1;
         }
+    if( clock_gettime( CLOCK_REALTIME, &stop) == -1 ) {
+      perror( "clock gettime" );
+      return ;
+    }
+    accum = ( stop.tv_sec - start.tv_sec )
+             + (double)( stop.tv_nsec - start.tv_nsec )
+               / (double)BILLION;
+    printf( "%lf\n", accum );
 	// closing the connected socket
 	close(client_fd);
 	return 0;

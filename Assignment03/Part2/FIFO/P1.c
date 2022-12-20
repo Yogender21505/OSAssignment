@@ -6,8 +6,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include<time.h>
 #define FIFO_NAME "StringFile"
-
+#define BILLION  1000000000L;
 
 char *randstring(size_t length) {
 
@@ -47,7 +48,12 @@ int main(void){
     printf("waiting for readers...\n");
     fd = open(FIFO_NAME, O_WRONLY);
     printf("got a reader--type some stuff\n");
-
+    struct timespec start, stop;
+    double accum;
+    if( clock_gettime( CLOCK_REALTIME, &start) == -1 ) {
+        perror( "clock gettime" );
+        return ;
+    }
     for (int i = 0; i < 50; i++){
         char string[3000]="";
         int j=0;
@@ -77,5 +83,13 @@ int main(void){
         }
         i=i-1;
     }
+        if( clock_gettime( CLOCK_REALTIME, &stop) == -1 ) {
+      perror( "clock gettime" );
+      return ;
+    }
+    accum = ( stop.tv_sec - start.tv_sec )
+             + (double)( stop.tv_nsec - start.tv_nsec )
+               / (double)BILLION;
+    printf( "%lf\n", accum );
     return 0;
 }
