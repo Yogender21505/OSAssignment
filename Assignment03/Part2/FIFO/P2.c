@@ -13,14 +13,27 @@ int main(void){
     mknod(FIFO_NAME, S_IFIFO | 0666, 0);
     printf("waiting for writers...\n");
     fd = open(FIFO_NAME, O_RDONLY);
+    int x=1;
     printf("got a writer\n");
     do {
-        if ((num = read(fd, s, strlen(s))) == -1){
+        if(x>2){
+        if ((num = read(fd, s, 47)) == -1){
             perror("read");
         }
         else {
             s[strlen(s)] = '\0';
             printf("P2: String ID: \"%s\"\n",s);
+        }}
+
+        else{
+            x++;
+            if ((num = read(fd, s, 42)) == -1){
+            perror("read");
+        }
+        else {
+            s[strlen(s)] = '\0';
+            printf("P2: String ID: \"%s\"\n",s);
+        }
         }
     } while (num > 0);
 
