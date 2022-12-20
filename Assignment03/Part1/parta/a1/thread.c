@@ -29,6 +29,7 @@ void * func(void * i){
     pthread_mutex_lock(&Forks[(n+1)%5]);
     //Eating
     //Putting Fork
+     //@ https://www.geeksforgeeks.org/mutex-lock-for-linux-thread-synchronization/
     pthread_mutex_unlock(&Forks[n]);
     pthread_mutex_unlock(&Forks[(n+1)%5]);
 
