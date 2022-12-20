@@ -11,6 +11,7 @@ void * func(void * i);
 int main(){
     int i,k;
     void *msg;
+    //@https://stackoverflow.com/questions/29050328/pthread-join-function-in-c
     for(i=1;i<=5;i++){
         pthread_mutex_init(&Forks[i],NULL); // Initialized the mutex for thread
         pthread_create(&philosopher[i],NULL,func,(void*)&i); // Create pthread for Philospher
@@ -29,6 +30,7 @@ void * func(void * i){
     pthread_mutex_lock(&Forks[(n+1)%5]);
     //Eating
     //Putting Fork
+     //@ https://www.geeksforgeeks.org/mutex-lock-for-linux-thread-synchronization/
     pthread_mutex_unlock(&Forks[n]);
     pthread_mutex_unlock(&Forks[(n+1)%5]);
 
