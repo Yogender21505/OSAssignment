@@ -56,7 +56,8 @@ int main()
 
 }
 int Eating(int val){
-
+    //refer lecture slide 11 in process synchronization
+    // refer slide 46 of process synchronization
     do{
         sem_wait(semaphore[val%n]);
         if(!sem_trywait(semaphore[(val+1)%n])){
