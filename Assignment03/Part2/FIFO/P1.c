@@ -31,6 +31,8 @@ char *randstring(size_t length) {
     //@https://codereview.stackexchange.com/questions/29198/random-string-generator-in-c
 }
 
+// @https://beej.us/guide/bgipc/pdf/bgipc_A4.pdf
+
 int main(void){
     int num, fd;
     char *arr[50];
