@@ -16,7 +16,7 @@ int main(){
         pthread_mutex_init(&Forks[i],NULL); // Initialized the mutex for thread
         pthread_create(&philosopher[i],NULL,func,(void*)&i); // Create pthread for Philospher
         pthread_join(philosopher[i],&msg); // Joining pthread one by one 
-        sleep(3);
+        // sleep(3);
     }
 
     return 0;
@@ -33,7 +33,12 @@ void * func(void * i){
      //@ https://www.geeksforgeeks.org/mutex-lock-for-linux-thread-synchronization/
     pthread_mutex_unlock(&Forks[n]);
     pthread_mutex_unlock(&Forks[(n+1)%5]);
-
+    sleep(1);
+    pthread_mutex_lock(&Forks[n]);          // when philosopher 5 is eating he takes fork 1 and fork 5
+    pthread_mutex_lock(&Forks[(n+1)%5]);
     //Finished Eating
+    pthread_mutex_unlock(&Forks[n]);
+    pthread_mutex_unlock(&Forks[(n+1)%5]);
     printf("\nPhilosopher %d Finished eating ",n);
 }
+
