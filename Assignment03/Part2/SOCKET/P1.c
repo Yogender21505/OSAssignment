@@ -91,7 +91,7 @@ int main(int argc, char const* argv[])
         // strcat(string,"\0");
 
         send(sock, string, strlen(string), 0);
-        printf("P1: ID %d get Successfull\n",i-1);
+        printf("P1: ID %d Successfull\n",i-1);
         i=i-1;
         }
 	// closing the connected socket

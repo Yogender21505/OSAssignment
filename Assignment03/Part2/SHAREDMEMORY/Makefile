@@ -1,10 +1,10 @@
 all:
-	gcc write.c -o write
-	gcc read.c -o read
+	gcc P1.c -o P1
+	gcc P2.c -o P2
 w:
-	./write
+	./P1
 r:
-	./read
+	./P2
 clean:
-	rm write
-	rm read
+	rm P1
+	rm P2

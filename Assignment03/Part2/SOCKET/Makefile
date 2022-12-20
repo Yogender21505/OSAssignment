@@ -1,10 +1,10 @@
 all:
-	@gcc client.c -o client
-	@gcc server.c -o server
+	@gcc P2.c -o P2
+	@gcc P1.c -o P1
 s:
-	./server 8080
+	./P2 8080
 c:
-	./client
+	./P1
 clean:
 	@rm client
 	@rm server
